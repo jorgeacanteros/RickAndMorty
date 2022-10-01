@@ -20,17 +20,13 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-
- //   val navHostFragment = supportFragmentManager
-   //   .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-    //val navController = navHostFragment.navController
-   // appBarConfiguration = AppBarConfiguration(navController.graph)
-   // binding..setupWithNavController(navController, appBarConfiguration)
-
+  //  binding.toolbar.title = "Hola"
     val navHostFragment = supportFragmentManager
       .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     val navController = navHostFragment.navController
     appBarConfiguration = AppBarConfiguration(navController.graph)
     binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    binding.toolbar.title = "Rick And Morty"
   }
+
 }

@@ -3,6 +3,7 @@ package com.example.myexamplemvvm.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.example.myexamplemvvm.R
 import com.example.myexamplemvvm.databinding.CharacterItemBinding
 import com.example.myexamplemvvm.domain.model.CharacterModel
 
-class AdapterCharacter( private val clickListener:(CharacterModel)->Unit) :ListAdapter<CharacterModel, CharacterViewHolder>(DiffCallback) {
+class AdapterCharacter( private val clickListener:(CharacterModel)->Unit) :PagingDataAdapter<CharacterModel, CharacterViewHolder>(DiffCallback) {
 
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
@@ -24,7 +25,7 @@ class AdapterCharacter( private val clickListener:(CharacterModel)->Unit) :ListA
         val item = getItem(position)
 
         holder.render(item)
-    holder.itemView.setOnClickListener{clickListener(item)}
+     holder.itemView.setOnClickListener{clickListener(item!!)}
   }
 
 
@@ -47,9 +48,10 @@ class AdapterCharacter( private val clickListener:(CharacterModel)->Unit) :ListA
 class CharacterViewHolder(view: View): RecyclerView.ViewHolder(view) {
   private val binding = CharacterItemBinding.bind(view)
 
-  fun render(characaterModel: CharacterModel) {
-    binding.NameIDCharacter.text = characaterModel.name
-    binding.StatusID.text = characaterModel.status
-     Glide.with(binding.root.context).load(characaterModel.image).into(binding.imageCharacterID)
+  fun render(characaterModel: CharacterModel?) {
+    binding.NameIDCharacter.text = characaterModel?.name
+    binding.StatusID.text = characaterModel?.status
+     Glide.with(binding.root.context).load(characaterModel?.image).into(binding.imageCharacterID)
+    binding.textViewEspecie.text = characaterModel?.species
   }
 }

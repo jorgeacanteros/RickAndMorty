@@ -1,5 +1,6 @@
 package com.example.myexamplemvvm.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,12 +37,19 @@ class DetailFragment : Fragment() {
     return binding.root
   }
 
+  @SuppressLint("SetTextI18n")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.currentCharacter.observe(viewLifecycleOwner){
-        binding.title.text = it.name
-      binding.statusDetail.text = it.status
-       Glide.with(binding.root.context).load(it.image).into(binding.imageDetail)
+
+
+    viewModel.currentCharacter.observe(viewLifecycleOwner){ character ->
+        binding.title.text = character.name
+      binding.statusDetail.text = character.status
+       Glide.with(binding.root.context).load(character.image).into(binding.imageDetail)
+      binding.statusDetail.text = character.status
+      binding.genderDetail.text = character.gender
+      binding.OriginName.text = character.origin.name
+      binding.countEpisode.text= "Aparece en ${character.episode?.size} episodios"
     }
   }
 

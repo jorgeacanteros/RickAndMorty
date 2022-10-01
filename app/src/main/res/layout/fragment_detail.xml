@@ -1,32 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
+  android:background="@color/white"
   android:layout_height="match_parent"
-
   tools:context=".ui.detail.DetailFragment"
-  android:orientation="vertical">
+  android:layout_margin="16dp"
+  app:cardCornerRadius="8dp">
 
+<com.google.android.material.card.MaterialCardView
+  android:layout_width="match_parent"
+  android:layout_height="200dp">
 
-  <ImageView
-    android:id="@+id/imageDetail"
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="282dp"
-    tools:src="@tools:sample/backgrounds/scenic" />
+    android:layout_height="800dp"
+    android:background="@color/white">
 
-  <TextView
-    android:id="@+id/title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="lala" />
+    <ImageView
+      android:id="@+id/imageDetail"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adjustViewBounds="true"
+      android:contentDescription="@null"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+      android:id="@+id/title"
+      style="@style/TextAppearance.AppCompat.Title"
+      android:layout_width="match_parent"
+
+      android:layout_height="wrap_content"
+      android:background="@color/backText"
+      android:padding="16dp"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark"
+      app:layout_constraintBottom_toBottomOf="@+id/imageDetail"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="Title Character" />
+
+    <TextView
+      android:id="@+id/countEpisode"
+      style="@style/TextAppearance.Material3.TitleMedium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Aparece en 5 episodios"
+      android:layout_marginStart="5dp"
+      android:textColor="@android:color/black"
+      app:layout_constraintBottom_toTopOf="@+id/OriginName"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginBottom="2dp"
+      app:layout_constraintTop_toBottomOf="@+id/imageDetail" />
+
+    <TextView
+      android:id="@+id/OriginName"
+      style="@style/TextAppearance.AppCompat.Body1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="50dp"
+      android:background="@drawable/circle_border"
+      android:padding="8dp"
+      android:text="OriginName"
+      android:textAlignment="center"
+      android:textColor="@color/black"
+      app:layout_constraintTop_toBottomOf="@+id/imageDetail" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+      android:layout_width="110dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:layout_marginEnd="-20dp"
+      android:background="@drawable/circle_border"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/OriginName">
+
+      <TextView
+        android:id="@+id/originText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Origin"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/statusLayuotDetail"
+      android:layout_width="110dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="-20dp"
+      android:layout_marginTop="10dp"
+      android:background="@drawable/circle_border"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/OriginName">
 
 
-  <TextView
-    android:id="@+id/statusDetail"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="status" />
+      <TextView
+        android:id="@+id/statusDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+      android:id="@+id/genderDetail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/circle_border"
+      android:text="Gender"
+      android:textColor="@color/black"
+      app:layout_constraintBottom_toTopOf="@+id/OriginName"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/countEpisode"
+      app:layout_constraintTop_toBottomOf="@+id/imageDetail" />
 
-</LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+</ScrollView>

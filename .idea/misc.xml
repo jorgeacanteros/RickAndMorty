@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circle_border.xml" value="0.3265" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.167578125" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/character_item.xml" value="0.45" />
-        <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.12447916666666667" />
-        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_loading_state.xml" value="0.20735356990166737" />
       </map>
     </option>
   </component>

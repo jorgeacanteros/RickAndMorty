@@ -1,25 +1,40 @@
 package com.example.myexamplemvvm.ui.listMain
 
+import android.app.ActionBar
+import android.app.AlertDialog
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.provider.CalendarContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.compose.ui.graphics.Color
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
+import com.example.myexamplemvvm.R
 import com.example.myexamplemvvm.databinding.FragmentCharacterListBinding
 import com.example.myexamplemvvm.domain.model.CharacterModel
 import com.example.myexamplemvvm.ui.adapter.AdapterCharacter
+import com.example.myexamplemvvm.ui.adapter.CharacterLoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
+import java.util.logging.XMLFormatter
 
 class CharacterListFragment : Fragment() {
 
   private lateinit var binding: FragmentCharacterListBinding
 
-  private  val viewModel:CharacterListViewModel by activityViewModels() //activityViewModels  : CharacterListViewModel
+  private  val viewModel:CharacterListViewModel by activityViewModels()
   lateinit var adapterCharacter :AdapterCharacter
   private lateinit var recyclerCharacter : RecyclerView
 
@@ -28,7 +43,6 @@ class CharacterListFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     binding = FragmentCharacterListBinding.inflate(inflater, container, false)
-
     return binding.root
   }
 
@@ -39,32 +53,51 @@ class CharacterListFragment : Fragment() {
     recyclerCharacter  = binding.RecyclerCharacterID
      initRecyclerView()
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,ListOnBackPressedCallBack(binding.SlidingPanelLayout))
-    viewModel.load()
+    //viewModel.loadCharacters()
+
+
   }
 
-
+  override fun onResume() {
+    binding.SlidingPanelLayout.closePane()
+    super.onResume()
+  }
 
   private fun initRecyclerView() {
-
-  /*  var listPrueba = listOf <CharacterModel>(
-      CharacterModel(name = "nombre1", status = "status1",),
-      CharacterModel(name = "nombre2", status = "status2")
-    )*/
     adapterCharacter =
-     AdapterCharacter(){
-           // Toast.makeText(context, it.name,Toast.LENGTH_SHORT).show()
-     //this.findNavController().navigate(R.id.detailFragment)
-      viewModel.setCurrentCharacter(it)
-     binding.SlidingPanelLayout.openPane()
-   }
-    binding.RecyclerCharacterID.adapter = adapterCharacter
-    viewModel.characters.observe(viewLifecycleOwner){
-      adapterCharacter.submitList(it)
+      AdapterCharacter() {
+        viewModel.setCurrentCharacter(it)
+        binding.SlidingPanelLayout.openPane()
+
+      }
+
+
+
+    // viewModel.characters.observe(viewLifecycleOwner){
+    //  adapterCharacter.sub(it)
+    //}
+    lifecycleScope.launchWhenCreated {
+      viewModel.characters.collectLatest {
+        adapterCharacter.submitData(it)
+      }
+
+      adapterCharacter.loadStateFlow.collectLatest {
+        if(it.refresh is LoadState.Loading ) {   showError() }
+        if(it.refresh is LoadState.Error ) {   showError() }
+        if(it.refresh is LoadState.NotLoading ) {   showError() }
+      }
 
     }
-
+    binding.RecyclerCharacterID.adapter = adapterCharacter.withLoadStateHeaderAndFooter(
+      header = CharacterLoadStateAdapter {this },
+      footer = CharacterLoadStateAdapter { this})
   }
 
+  private fun showError() {
+        val dialog = AlertDialog.Builder(context)
+        val  view = layoutInflater.inflate(R.layout.item_loading_state,null)
+        dialog.setView(view).create().show()
+  }
 }
 
 class ListOnBackPressedCallBack(private val sliderPanel:SlidingPaneLayout):OnBackPressedCallback(sliderPanel.isSlideable && sliderPanel.isOpen),SlidingPaneLayout.PanelSlideListener{

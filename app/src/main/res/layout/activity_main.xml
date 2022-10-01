@@ -8,7 +8,6 @@
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"
-
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -22,30 +21,26 @@
 
   </com.google.android.material.appbar.AppBarLayout>
 
+  <ProgressBar
+    android:id="@+id/progress_barActivity"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/nav_host_fragment"
+    app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+    tools:visibility="gone" />
 
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/nav_host_fragment"
     android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
     app:defaultNavHost="true"
-
     app:layout_constraintStart_toStartOf="parent"
-
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
     app:navGraph="@navigation/nav_graph" />
 
-  <!-- res/layout/example_activity.xml
-  <androidx.fragment.app.FragmentContainerView
-    android:id="@+id/fragment_container_view"
-    android:name="com.example.myexamplemvvm.ui.listMain.CharacterListFragment"
-    android:layout_width="match_parent"
-    android:layout_height="600dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
--->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

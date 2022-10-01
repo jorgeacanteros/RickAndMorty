@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RemoteDataSourceImpl @Inject constructor(private val retrofit: Retrofit ): RemoteDataSource {
 
   override suspend fun getListCharacter(): List<CharacterModel> {
-    val response = retrofit.create(RickAndMortyApiClient::class.java).getAllCharacter()
+    val response = retrofit.create(RickAndMortyApiClient::class.java).getAllCharacter(1)
       return response.body()?.results ?: emptyList()
   }
 }

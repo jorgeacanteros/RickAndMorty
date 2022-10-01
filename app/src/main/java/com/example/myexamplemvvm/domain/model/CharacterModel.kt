@@ -8,9 +8,13 @@ data class CharacterModel(val id: Long?,
                           val species: String?,
                           val type: String?,
                           @SerializedName("gender") val gender: String?,
-                         // val origin: Location,
-                          //val location: Location,
+                          val origin: Origin,
+                          val location: Location,
                           @SerializedName("image")val image: String?,
                           val episode: List<String>?,
                           val url: String?,
                           val created: String?)
+
+data class Origin(val name: String?, val url: String?)
+
+data class Location(val name: String?, val url: String? )
