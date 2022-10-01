@@ -1,6 +1,5 @@
 package com.example.myexamplemvvm.data.datasources
 
-import com.example.myexamplemvvm.core.RetrofitHelper
 import com.example.myexamplemvvm.data.network.RickAndMortyApiClient
 import com.example.myexamplemvvm.domain.model.CharacterModel
 import retrofit2.Retrofit

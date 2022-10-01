@@ -53,9 +53,6 @@ class CharacterListFragment : Fragment() {
     recyclerCharacter  = binding.RecyclerCharacterID
      initRecyclerView()
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,ListOnBackPressedCallBack(binding.SlidingPanelLayout))
-    //viewModel.loadCharacters()
-
-
   }
 
   override fun onResume() {
@@ -70,27 +67,19 @@ class CharacterListFragment : Fragment() {
         binding.SlidingPanelLayout.openPane()
 
       }
-
-
-
-    // viewModel.characters.observe(viewLifecycleOwner){
-    //  adapterCharacter.sub(it)
-    //}
     lifecycleScope.launchWhenCreated {
       viewModel.characters.collectLatest {
         adapterCharacter.submitData(it)
       }
 
       adapterCharacter.loadStateFlow.collectLatest {
-        if(it.refresh is LoadState.Loading ) {   showError() }
         if(it.refresh is LoadState.Error ) {   showError() }
-        if(it.refresh is LoadState.NotLoading ) {   showError() }
       }
 
     }
     binding.RecyclerCharacterID.adapter = adapterCharacter.withLoadStateHeaderAndFooter(
-      header = CharacterLoadStateAdapter {this },
-      footer = CharacterLoadStateAdapter { this})
+      header = CharacterLoadStateAdapter { },
+      footer = CharacterLoadStateAdapter { })
   }
 
   private fun showError() {
@@ -104,21 +93,15 @@ class ListOnBackPressedCallBack(private val sliderPanel:SlidingPaneLayout):OnBac
   override fun handleOnBackPressed() {
     sliderPanel.closePane()
   }
-
   override fun onPanelSlide(panel: View, slideOffset: Float) {
-
   }
-
   override fun onPanelOpened(panel: View) {
       isEnabled= true
   }
-
   override fun onPanelClosed(panel: View) {
     isEnabled= false
   }
-
   init {
     sliderPanel.addPanelSlideListener(this)
   }
-
 }

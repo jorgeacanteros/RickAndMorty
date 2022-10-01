@@ -21,14 +21,12 @@ class CharacterLoadStateAdapter (  private val retry: () -> Unit
       if (loadState is LoadState.Error) {
         binding.textViewError.text = loadState.error.localizedMessage
       }
-
       binding.progressbar.isVisible =(loadState is LoadState.Loading)
       binding.buttonRetry.isVisible =(loadState is LoadState.Error)
       binding.textViewError.isVisible =(loadState is LoadState.Error)
       binding.buttonRetry.setOnClickListener {
         retry()
       }
-
       binding.progressbar.visibility = View.VISIBLE
     }
   }

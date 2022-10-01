@@ -24,56 +24,15 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class CharacterListViewModel @Inject constructor(private val usecaseGetCharacter: LoadCharacters ) : ViewModel() {
+class CharacterListViewModel @Inject constructor( useCaseGetCharacter: LoadCharacters ) : ViewModel() {
 
-  //  private val _characters = MutableLiveData <List<CharacterModel>>()
-   // val characters : LiveData<List<CharacterModel>>  get() = _characters
-
- // val characters :Flow<PagingData<CharacterModel>> = Pager( config = PagingConfig(pageSize = 20, maxSize = 200){
-
-  //},
   private val _currentCharacter = MutableLiveData <CharacterModel>()
   val currentCharacter : LiveData<CharacterModel>  get() = _currentCharacter
 
-  private val _uiState = MutableStateFlow(CharacterUiState.Success(null))
-  val uiState: StateFlow<CharacterUiState> = _uiState
-
- /* fun loadCharacters():Flow<PagingData<CharacterModel>>{
-    return Pager( config = PagingConfig(pageSize = 2, maxSize = 200,),
-      pagingSourceFactory = {CharacterPagingSource(retrofit = provideRetrofit())}).flow.cachedIn(viewModelScope)
-  }*/
-   var characters : Flow<PagingData<CharacterModel>> = usecaseGetCharacter.invoke().cachedIn(viewModelScope)
-   /*userRepository.getUsers()
-     .map { pagingData ->
-       pagingData.map { userModel -> UserItemUiState(userModel) }
-     }.cachedIn(viewModelScope)
-   usecaseGetCharacter.invoke().flow.cachedIn(viewModelScope)*/
-
-  fun loadCharacters(){
-   viewModelScope.launch(Dispatchers.IO) {
-     //  _characters.value = usecaseGetCharacter.invoke()
-     // _currentCharacter.value = _characters.value!!.first()
-
-   }
-
- }
-
-
-  fun load() {
-    viewModelScope.launch(Dispatchers.Main) {
-    //  _characters.value = usecaseGetCharacter.invoke()
-     // _currentCharacter.value = _characters.value!!.first()
-    }
-  }
+   var characters : Flow<PagingData<CharacterModel>> = useCaseGetCharacter.invoke().cachedIn(viewModelScope)
 
   fun setCurrentCharacter( character:CharacterModel){
-      _currentCharacter.value = character
+    _currentCharacter.value = character
   }
+ }
 
-}
-
-sealed class CharacterUiState {
-  object Progress: CharacterUiState()
-  data class Success(val charactersList: Flow<PagingData<CharacterModel>>?): CharacterUiState()
-  data class Error(val exception: Throwable): CharacterUiState()
-}

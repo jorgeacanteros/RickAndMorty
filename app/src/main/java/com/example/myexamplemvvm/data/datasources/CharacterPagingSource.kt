@@ -23,14 +23,14 @@ class CharacterPagingSource @Inject constructor(private val retrofit: Retrofit):
       val response = retrofit.create(RickAndMortyApiClient::class.java).getAllCharacter(nextPage)
 
       var nextPageNumber: Int? = null
-      if(response?.body()?.info?.next != null) {
-        val uri = Uri.parse(response?.body()?.info?.next!!)
+      if(response.body()?.info?.next != null) {
+        val uri = Uri.parse(response.body()?.info?.next!!)
         val nextPageQuery = uri.getQueryParameter("page")
         nextPageNumber = nextPageQuery?.toInt()
       }
       var prevPageNumber: Int? = null
-      if(response?.body()?.info?.prev != null) {
-        val uri = Uri.parse(response?.body()?.info?.prev!!)
+      if(response.body()?.info?.prev != null) {
+        val uri = Uri.parse(response.body()?.info?.prev!!)
         val prevPageQuery = uri.getQueryParameter("page")
 
         prevPageNumber = prevPageQuery?.toInt()

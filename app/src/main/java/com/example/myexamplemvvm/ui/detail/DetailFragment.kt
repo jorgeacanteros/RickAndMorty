@@ -41,7 +41,6 @@ class DetailFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-
     viewModel.currentCharacter.observe(viewLifecycleOwner){ character ->
         binding.title.text = character.name
       binding.statusDetail.text = character.status
